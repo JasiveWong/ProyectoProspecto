@@ -15,13 +15,13 @@
   <body>
     <div class="container">
       <h1 class="display-5 fw-bold text-center">Información del Prospecto</h1>
-      <form action="" method="post">
+      <form action="agregarinfo.php" method="post">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="nombre" />
+          <input type="text" class="form-control" name="nombre" required/>
           <label>Nombre del prospecto</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="primerAp" />
+          <input type="text" class="form-control" name="primerAp" required/>
           <label>Primer apellido</label>
         </div>
         <div class="form-floating mb-3">
@@ -29,31 +29,31 @@
           <label>Segundo apellido</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="calle" />
+          <input type="text" class="form-control" name="calle" required/>
           <label>Calle</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="number" class="form-control" name="numero" />
+          <input type="number" class="form-control" name="numero" required/>
           <label>Numero</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="colonia" />
+          <input type="text" class="form-control" name="colonia" required/>
           <label>Colonia</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="number" class="form-control" name="codigoP" />
+          <input type="number" class="form-control" name="codigoP" required/>
           <label>Codigo Postal</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="telefono" />
+          <input type="text" class="form-control" name="telefono" required/>
           <label>Telefono</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="rfc" />
+          <input type="text" class="form-control" name="rfc" required/>
           <label>RFC</label>
         </div>
         <div class="form-floating mb-3">
-          Documentos: <input type="file" name="file" />
+          Documentos: <input type="file" name="file" required/>
         </div>
         <input class="btn btn-success" type="submit" name="" value="Enviar" />
       </form>
