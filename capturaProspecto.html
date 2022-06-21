@@ -21,7 +21,7 @@
         <h1 class="display-5 fw-bold p-2 w-100">Información del Prospecto</h1>
         <button type="button" class="btn btn-danger mb-3 mt-3" onclick="Salir()">Salir</button>
       </div>
-      <form action="agregarinfo.php" method="post">
+      <form action="agregarinfo.php" method="post" enctype="multipart/form-data">
         <div class="form-floating mb-3">
           <input type="text" class="form-control" name="nombre" required/>
           <label>Nombre del prospecto</label>
@@ -58,9 +58,10 @@
           <input type="text" class="form-control" name="rfc" required/>
           <label>RFC</label>
         </div>
-        <div class="form-floating mb-3">
-          Documentos: <input type="file" name="file" required/>
-        </div>
+        <label class="col-sm-2 control-label">Archivos</label>
+					<div class="col-sm-8">
+						<input type="file" class="form-control" id="archivo[]" name="archivo[]" multiple="">
+					</div>
         <input class="btn btn-success" type="submit" name="" value="Enviar" />
       </form>
     </div>
