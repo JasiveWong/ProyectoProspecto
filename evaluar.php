@@ -37,23 +37,25 @@
                     <li class="list-group-item"><b>Documentos: </b>'.$registro['documentos'].'</li>
                 </ul>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end" onchange="mostrarTextArea()" id="estatus2">
+                <form method="post" action="autorizarRechazar.php?id='.$registro['id'].'">
                     <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="estatus" id="inlineRadio1" value="Autorizar">
-                    <label class="form-check-label">Autorizar</label>
+                        <input class="form-check-input" type="radio" name="estatus" id="inlineRadio1" value="Autorizar">
+                        <label class="form-check-label">Autorizar</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="estatus" id="Rechazar" value="Rechazar">
                         <label class="form-check-label">Rechazar</label>
                     </div>
-                </div>
-                <br>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <textarea cols="50" rows="5" class="observaciones ocultar" placeholder="Observaciones de rechazo"></textarea>
-                </div>
-                <br>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-primary me-md-2" type="button">Enviar</button>
-                </div>
+                    </div>
+                    <br>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <textarea cols="50" rows="5" name="observaciones" class="observaciones ocultar" placeholder="Observaciones de rechazo"></textarea>
+                    </div>
+                    <br>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <input type="submit" class="btn btn-primary me-md-2" value="Enviar"></input>
+                    </div>
+                </form>
             '
         ?>
     </div>
