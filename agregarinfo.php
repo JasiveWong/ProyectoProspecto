@@ -28,7 +28,7 @@
                         '".$_POST['telefono']."',
                         '".$_POST['rfc']."'
                         )";
-    mysqli_query($conexionbd,$query);
+    $guardadoDatos=mysqli_query($conexionbd,$query);
         //Si hay archivos a subir
         if($_FILES["archivo"]){
             //Recorre el array de los archivos a subir
@@ -51,16 +51,36 @@
                     $dir=opendir($carpeta);
                     
                     //Verificamos si el archivo se ha subido
-                    if(move_uploaded_file($fuente, $carpeta.'/'.$archivonombre)){	
-                        echo "El archivo es válido y se cargó correctamente.<br><br>";
-                    }else{	
-                        echo "Error";
-                    }
+                    $guardadoArchivos=move_uploaded_file($fuente, $carpeta.'/'.$archivonombre);
                     //Cerramos la conexion con la carpeta destino
                     closedir($dir); 
                 }
             }
         }
+    if($guardadoArchivos && $guardadoDatos){
+        echo '
+        <div class="px-4 py-5 my-5 text-center">
+        <i class="bi bi-check-circle-fill" style="font-size: 5rem; color: green;"></i>
+        <h1 class="display-5 fw-bold">Información del prospecto guardada!</h1>
+        <div class="col-lg-6 mx-auto">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="listadoProspectos.php" class="btn btn-primary btn-lg px-4 gap-3">Ver Lista</a>
+            <a href="capturaProspecto.html" class="btn btn-outline-secondary btn-lg px-4">Registrar otro</a>
+        </div>
+        </div>
+        </div>';
+    }else{
+        echo '
+        <div class="px-4 py-5 my-5 text-center">
+        <i class="bi bi-x-circle-fill" style="font-size: 5rem; color: red;"></i>
+        <h1 class="display-5 fw-bold">Ocurrio un error al guardar información</h1>
+        <div class="col-lg-6 mx-auto">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="capturaProspecto.html" class="btn btn-outline-secondary btn-lg px-4">Volver a intentar</a>
+        </div>
+        </div>
+        </div>';
+    }
 ?>
 </body>
 </html>
