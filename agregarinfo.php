@@ -16,6 +16,7 @@
 </head>
 <body>
 <?php
+    SESSION_START();
     if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
         include("bd.php");
         $conexionbd=conectarbd();

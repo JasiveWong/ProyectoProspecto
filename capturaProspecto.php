@@ -16,6 +16,7 @@
   </head>
   <body>
     <?php
+      SESSION_START();
       if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
         echo'
             <div class="container">

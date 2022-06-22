@@ -1,5 +1,4 @@
 <?php
-    if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
         $usuario = $_POST['usuario'];
         $captcha = $_POST['g-recaptcha-response'];
         $contra = $_POST['contra'];
@@ -40,9 +39,6 @@
         }else{
             header('location:iniciarsesion.html');
         }
-    }else{
-        header('location:iniciarsesion.html');
-    }
 ?>
 
 
