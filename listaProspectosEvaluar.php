@@ -28,7 +28,7 @@
                 <?php
                 include("bd.php");
                 $con = conectarbd();
-                $sql = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion";
+                $sql = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion WHERE estatus='Enviado'";
                 $result = mysqli_query($con,$sql);
 
                 while ($row = $result->fetch_assoc()) {
