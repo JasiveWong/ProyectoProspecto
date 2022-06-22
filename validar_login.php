@@ -29,7 +29,7 @@
                 include("iniciarsesion.html");
                 ?>
                 <script type = "text/javascript"> 
-                    alert("Verifique que el usuario y contraseña sean correctos");
+                    alert("Verifique que el usuario y contraseña sean correctos ");
                 </script>
                 <?php
             }
