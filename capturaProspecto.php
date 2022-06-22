@@ -18,7 +18,8 @@
     <?php
       SESSION_START();
       if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
-        echo'
+        if($_SESSION['trabajador']=='Promotor'){
+          echo'
             <div class="container">
 
             <div class="d-flex mb-3 mt-3">
@@ -69,6 +70,9 @@
               <input class="btn btn-success" type="submit" name="" value="Enviar" />
             </form>
           </div>';
+        }else{
+          ?><script>history.back()</script><?php
+        }
       }else{
         header('location:iniciarsesion.html');
       }

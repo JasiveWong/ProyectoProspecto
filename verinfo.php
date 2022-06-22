@@ -17,53 +17,57 @@
         <?php
             SESSION_START();
             if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
-                include("bd.php");
-            $conexionbd=conectarbd();
-            $query="SELECT * FROM informacion WHERE id=".$_GET['id'];
-            $resultado=mysqli_query($conexionbd,$query);
-            $registro=mysqli_fetch_assoc($resultado);
-            echo'<h1 class="display-5 fw-bold text-center">Información de: '.$registro['nombre']." ".$registro['primerAp'].'</h1>';
-            echo'
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b>Nombre del prospecto: </b>'.$registro['nombre'].'</li>
-                    <li class="list-group-item"><b>Primer apellido: </b>'.$registro['primerAp'].'</li>
-                    <li class="list-group-item"><b>Segundo apellido: </b>'.$registro['segundoAp'].'</li>
-                    <li class="list-group-item"><b>Calle: </b>'.$registro['calle'].'</li>
-                    <li class="list-group-item"><b>Numero: </b>'.$registro['numero'].'</li>
-                    <li class="list-group-item"><b>Colonia: </b>'.$registro['colonia'].'</li>
-                    <li class="list-group-item"><b>Codigo Postal: </b>'.$registro['cp'].'</li>
-                    <li class="list-group-item"><b>Telefono: </b>'.$registro['telefono'].'</li>
-                    <li class="list-group-item"><b>RFC: </b>'.$registro['rfc'].'</li>
-                    <li class="list-group-item"><b>Documentos: </b>';
-                        
-                    $ruta="archivos/".$registro['primerAp']."".$registro['segundoAp']."".$registro['nombre']."";
-                    $gestor = opendir($ruta);
-                    echo "<ol>";
-                        // Recorre todos los elementos del directorio
-                        while (($archivo = readdir($gestor)) !== false)  {
+                if($_SESSION['trabajador']=='Promotor'){
+                    include("bd.php");
+                    $conexionbd=conectarbd();
+                    $query="SELECT * FROM informacion WHERE id=".$_GET['id'];
+                    $resultado=mysqli_query($conexionbd,$query);
+                    $registro=mysqli_fetch_assoc($resultado);
+                    echo'<h1 class="display-5 fw-bold text-center">Información de: '.$registro['nombre']." ".$registro['primerAp'].'</h1>';
+                    echo'
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Nombre del prospecto: </b>'.$registro['nombre'].'</li>
+                            <li class="list-group-item"><b>Primer apellido: </b>'.$registro['primerAp'].'</li>
+                            <li class="list-group-item"><b>Segundo apellido: </b>'.$registro['segundoAp'].'</li>
+                            <li class="list-group-item"><b>Calle: </b>'.$registro['calle'].'</li>
+                            <li class="list-group-item"><b>Numero: </b>'.$registro['numero'].'</li>
+                            <li class="list-group-item"><b>Colonia: </b>'.$registro['colonia'].'</li>
+                            <li class="list-group-item"><b>Codigo Postal: </b>'.$registro['cp'].'</li>
+                            <li class="list-group-item"><b>Telefono: </b>'.$registro['telefono'].'</li>
+                            <li class="list-group-item"><b>RFC: </b>'.$registro['rfc'].'</li>
+                            <li class="list-group-item"><b>Documentos: </b>';
                                 
-                            $ruta_completa = $ruta . "/" . $archivo;
-                
-                            // Se muestran todos los archivos y carpetas excepto "." y ".."
-                            if ($archivo != "." && $archivo != "..") {
-                                // Si es un directorio se recorre recursivamente
-                                if (is_dir($ruta_completa)) {
-                                    echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
-                                    obtener_estructura_directorios($ruta_completa);
-                                } else {
-                                    echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
+                            $ruta="archivos/".$registro['primerAp']."".$registro['segundoAp']."".$registro['nombre']."";
+                            $gestor = opendir($ruta);
+                            echo "<ol>";
+                                // Recorre todos los elementos del directorio
+                                while (($archivo = readdir($gestor)) !== false)  {
+                                        
+                                    $ruta_completa = $ruta . "/" . $archivo;
+                        
+                                    // Se muestran todos los archivos y carpetas excepto "." y ".."
+                                    if ($archivo != "." && $archivo != "..") {
+                                        // Si es un directorio se recorre recursivamente
+                                        if (is_dir($ruta_completa)) {
+                                            echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
+                                            obtener_estructura_directorios($ruta_completa);
+                                        } else {
+                                            echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
+                                        }
+                                    }
                                 }
+                                // Cierra el gestor de directorios
+                                closedir($gestor);
+                            echo '</ol>
+                            </li>
+                            <li class="list-group-item"><b>Estatus: </b>'.$registro['estatus'].'</li>';
+                            if ($registro['estatus']=='Rechazado') {
+                                echo '<li class="list-group-item"><b>Comentarios: </b> '.$registro['comentarios'].'</li>';
                             }
-                        }
-                        // Cierra el gestor de directorios
-                        closedir($gestor);
-                    echo '</ol>
-                    </li>
-                    <li class="list-group-item"><b>Estatus: </b>'.$registro['estatus'].'</li>';
-                    if ($registro['estatus']=='Rechazado') {
-                        echo '<li class="list-group-item"><b>Comentarios: </b> '.$registro['comentarios'].'</li>';
-                    }
-                '</ul>';
+                        '</ul>';
+                }else{
+                    ?><script>history.back()</script><?php
+                }
             }else{
                 header('location:iniciarsesion.html');
             }
