@@ -37,7 +37,7 @@
             mysqli_close($con);
         }
     }else{
-        header('iniciarsesion.html');
+        header('location:iniciarsesion.html');
     }
 ?>
 
