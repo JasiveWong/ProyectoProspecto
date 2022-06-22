@@ -1,7 +1,6 @@
 <?php
 
     $usuario = $_POST['usuario'];
-    $contra = $_POST['contra'];
     $captcha = $_POST['g-recaptcha-response'];
 
     if(!empty($captcha)){
@@ -18,6 +17,7 @@
             if(password_verify($contra, $fila['contrasenia'])){
                 SESSION_START();
                 $_SESSION['usuario']=$usuario;
+                $_SESSION['trabajador']=$fila['tipo'];
                 if($fila['tipo'] == "Promotor"){
                     header("location:listadoProspectos.php");
                 }else{

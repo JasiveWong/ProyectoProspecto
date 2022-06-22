@@ -26,19 +26,23 @@
             </thead>
             <tbody>
                 <?php
-                include("bd.php");
-                $con = conectarbd();
-                $sql = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion WHERE estatus='Enviado'";
-                $result = mysqli_query($con,$sql);
+                if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+                    include("bd.php");
+                    $con = conectarbd();
+                    $sql = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion WHERE estatus='Enviado'";
+                    $result = mysqli_query($con,$sql);
 
-                while ($row = $result->fetch_assoc()) {
-                    echo '<tr>
-                    <td>'. $row["nombre"] .'</td>
-                    <td>'. $row["primerAp"] .'</td>
-                    <td>'. $row["segundoAp"] .'</td>
-                    <td> <a href="evaluar.php?id='.$row['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
-                    </tr>';
-                }
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<tr>
+                        <td>'. $row["nombre"] .'</td>
+                        <td>'. $row["primerAp"] .'</td>
+                        <td>'. $row["segundoAp"] .'</td>
+                        <td> <a href="evaluar.php?id='.$row['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
+                        </tr>';
+                    }
+                }else{
+                    header('location:iniciarsesion.html');
+                }   
                ?>
             </tbody>
         </table>

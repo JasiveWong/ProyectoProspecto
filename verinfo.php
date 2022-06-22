@@ -15,7 +15,8 @@
 <body>
     <div class="container">
         <?php
-            include("bd.php");
+            if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+                include("bd.php");
             $conexionbd=conectarbd();
             $query="SELECT * FROM informacion WHERE id=".$_GET['id'];
             $resultado=mysqli_query($conexionbd,$query);
@@ -61,7 +62,10 @@
                     if ($registro['estatus']=='Rechazado') {
                         echo '<li class="list-group-item"><b>Comentarios: </b> '.$registro['comentarios'].'</li>';
                     }
-                '</ul>'
+                '</ul>';
+            }else{
+                header('location:iniciarsesion.html');
+            }
         ?>
     </div>
 </body>

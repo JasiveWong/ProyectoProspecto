@@ -16,70 +16,74 @@
 </head>
 <body>
 <?php
-    include("bd.php");
-    $conexionbd=conectarbd();
-    $query= "INSERT INTO informacion (nombre,primerAp,segundoAp,calle,numero,colonia,cp,telefono,rfc) VALUES ('".$_POST['nombre']."',
-                        '".$_POST['primerAp']."',
-                        '".$_POST['segundoAp']."',
-                        '".$_POST['calle']."',
-                        ".$_POST['numero'].",
-                        '".$_POST['colonia']."',
-                        '".$_POST['codigoP']."',
-                        '".$_POST['telefono']."',
-                        '".$_POST['rfc']."'
-                        )";
-    $guardadoDatos=mysqli_query($conexionbd,$query);
-        //Si hay archivos a subir
-        if($_FILES["archivo"]){
-            //Recorre el array de los archivos a subir
-            foreach($_FILES["archivo"]['tmp_name'] as $key => $tmp_name){
-                //Si el archivo existe
-                if($_FILES["archivo"]["name"][$key]){
-                    // Nombres de archivos de temporales
-                    $archivonombre = $_FILES["archivo"]["name"][$key]; 
-                    $fuente = $_FILES["archivo"]["tmp_name"][$key]; 
-                    
-                    $carpeta = "archivos/".$_POST['primerAp']."".$_POST['segundoAp']."".$_POST['nombre'].""; //Carpeta donde guardamos los archivos
-                    
-                    //Si no existe la carpeta
-                    if(!file_exists($carpeta)){
-                        //Se crea o se genera un error.
-                        mkdir($carpeta, 0777) or die("Hubo un error al crear la carpeta");	
+    if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+        include("bd.php");
+        $conexionbd=conectarbd();
+        $query= "INSERT INTO informacion (nombre,primerAp,segundoAp,calle,numero,colonia,cp,telefono,rfc) VALUES ('".$_POST['nombre']."',
+                            '".$_POST['primerAp']."',
+                            '".$_POST['segundoAp']."',
+                            '".$_POST['calle']."',
+                            ".$_POST['numero'].",
+                            '".$_POST['colonia']."',
+                            '".$_POST['codigoP']."',
+                            '".$_POST['telefono']."',
+                            '".$_POST['rfc']."'
+                            )";
+        $guardadoDatos=mysqli_query($conexionbd,$query);
+            //Si hay archivos a subir
+            if($_FILES["archivo"]){
+                //Recorre el array de los archivos a subir
+                foreach($_FILES["archivo"]['tmp_name'] as $key => $tmp_name){
+                    //Si el archivo existe
+                    if($_FILES["archivo"]["name"][$key]){
+                        // Nombres de archivos de temporales
+                        $archivonombre = $_FILES["archivo"]["name"][$key]; 
+                        $fuente = $_FILES["archivo"]["tmp_name"][$key]; 
+                        
+                        $carpeta = "archivos/".$_POST['primerAp']."".$_POST['segundoAp']."".$_POST['nombre'].""; //Carpeta donde guardamos los archivos
+                        
+                        //Si no existe la carpeta
+                        if(!file_exists($carpeta)){
+                            //Se crea o se genera un error.
+                            mkdir($carpeta, 0777) or die("Hubo un error al crear la carpeta");	
+                        }
+                        
+                        //Abrimos la conexion con la carpeta destino
+                        $dir=opendir($carpeta);
+                        
+                        //Verificamos si el archivo se ha subido
+                        $guardadoArchivos=move_uploaded_file($fuente, $carpeta.'/'.$archivonombre);
+                        //Cerramos la conexion con la carpeta destino
+                        closedir($dir); 
                     }
-                    
-                    //Abrimos la conexion con la carpeta destino
-                    $dir=opendir($carpeta);
-                    
-                    //Verificamos si el archivo se ha subido
-                    $guardadoArchivos=move_uploaded_file($fuente, $carpeta.'/'.$archivonombre);
-                    //Cerramos la conexion con la carpeta destino
-                    closedir($dir); 
                 }
             }
+        if($guardadoArchivos && $guardadoDatos){
+            echo '
+            <div class="px-4 py-5 my-5 text-center">
+            <i class="bi bi-check-circle-fill" style="font-size: 5rem; color: green;"></i>
+            <h1 class="display-5 fw-bold">Información del prospecto enviada!</h1>
+            <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="listadoProspectos.php" class="btn btn-primary btn-lg px-4 gap-3">Ver Lista</a>
+                <a href="capturaProspecto.php" class="btn btn-outline-secondary btn-lg px-4">Registrar otro</a>
+            </div>
+            </div>
+            </div>';
+        }else{
+            echo '
+            <div class="px-4 py-5 my-5 text-center">
+            <i class="bi bi-x-circle-fill" style="font-size: 5rem; color: red;"></i>
+            <h1 class="display-5 fw-bold">Ocurrio un error al enviar información</h1>
+            <div class="col-lg-6 mx-auto">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="capturaProspecto.php" class="btn btn-outline-secondary btn-lg px-4">Volver a intentar</a>
+            </div>
+            </div>
+            </div>';
         }
-    if($guardadoArchivos && $guardadoDatos){
-        echo '
-        <div class="px-4 py-5 my-5 text-center">
-        <i class="bi bi-check-circle-fill" style="font-size: 5rem; color: green;"></i>
-        <h1 class="display-5 fw-bold">Información del prospecto enviada!</h1>
-        <div class="col-lg-6 mx-auto">
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="listadoProspectos.php" class="btn btn-primary btn-lg px-4 gap-3">Ver Lista</a>
-            <a href="capturaProspecto.html" class="btn btn-outline-secondary btn-lg px-4">Registrar otro</a>
-        </div>
-        </div>
-        </div>';
     }else{
-        echo '
-        <div class="px-4 py-5 my-5 text-center">
-        <i class="bi bi-x-circle-fill" style="font-size: 5rem; color: red;"></i>
-        <h1 class="display-5 fw-bold">Ocurrio un error al enviar información</h1>
-        <div class="col-lg-6 mx-auto">
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="capturaProspecto.html" class="btn btn-outline-secondary btn-lg px-4">Volver a intentar</a>
-        </div>
-        </div>
-        </div>';
+        header('location:iniciarsesion.html');
     }
 ?>
 </body>
