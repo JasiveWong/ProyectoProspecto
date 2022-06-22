@@ -59,7 +59,7 @@
                     </li>
                     <li class="list-group-item"><b>Estatus: </b>'.$registro['estatus'].'</li>';
                     if ($registro['estatus']=='Rechazado') {
-                        '<li class="list-group-item">Estatus: '.$registro['estatus'].'</li>';
+                        echo '<li class="list-group-item"><b>Comentarios: </b> '.$registro['comentarios'].'</li>';
                     }
                 '</ul>'
         ?>
