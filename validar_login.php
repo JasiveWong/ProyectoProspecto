@@ -14,27 +14,38 @@
                 $consulta = "SELECT*FROM usuarios WHERE usuario= '$usuario'";
                 $resultado = mysqli_query($conexionbd,$consulta);
                 $fila = mysqli_fetch_assoc($resultado);
-                if(password_verify($contra, $fila['contrasenia'])){
-                    SESSION_START();
-                    $_SESSION['usuario']=$usuario;
-                    $_SESSION['trabajador']=$fila['tipo'];
-                    if($fila['tipo'] == "Promotor"){
-                        header("location:listadoProspectos.php");
-                    }else{
-                        header("location:listaProspectosEvaluar.php");
+                if(!empty($fila)){
+                    if(password_verify($contra, $fila['contrasenia'])){
+                        SESSION_START();
+                        $_SESSION['usuario']=$usuario;
+                        $_SESSION['trabajador']=$fila['tipo'];
+                        if($fila['tipo'] == "Promotor"){
+                            header("location:listadoProspectos.php");
+                        }else{
+                            header("location:listaProspectosEvaluar.php");
+                        }
+                    } else{
+                        ?>
+                        <?php
+                        include("iniciarsesion.html");
+                        ?>
+                        <script type = "text/javascript"> 
+                            alert("Verifique que el usuario y contraseña sean correctos ");
+                        </script>
+                        <?php
                     }
-                } else{
+                    mysqli_free_result($resultado);
+                    mysqli_close($con);
+                }else{
                     ?>
                     <?php
-                    include("iniciarsesion.html");
+                        include("iniciarsesion.html");
                     ?>
                     <script type = "text/javascript"> 
-                        alert("Verifique que el usuario y contraseña sean correctos ");
+                        alert("El usuario no existe");
                     </script>
                     <?php
                 }
-                mysqli_free_result($resultado);
-                mysqli_close($con);
             }
         }else{
             header('location:iniciarsesion.html');
