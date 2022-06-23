@@ -21,6 +21,16 @@
         if($_SESSION['trabajador']=='Promotor'){
           echo'
             <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="capturaProspecto.php" class="nav-link px-2 link-secondary">Capturar Prospecto</a></li>
+              </ul>
+
+              <div class="col-md-3 text-end">
+                <a href="cerrarsesion.php" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
+              </div>
+            </header>
 
             <div class="d-flex mb-3 mt-3">
               <h1 class="display-5 fw-bold p-2 w-100">Información del Prospecto</h1>
