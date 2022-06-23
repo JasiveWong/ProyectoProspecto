@@ -48,10 +48,10 @@
                                 <li class="list-group-item"><b>Primer apellido: </b>'.$registro['primerAp'].'</li>
                                 <li class="list-group-item"><b>Segundo apellido: </b>'.$registro['segundoAp'].'</li>
                                 <li class="list-group-item"><b>Calle: </b>'.$registro['calle'].'</li>
-                                <li class="list-group-item"><b>Numero: </b>'.$registro['numero'].'</li>
+                                <li class="list-group-item"><b>Número: </b>'.$registro['numero'].'</li>
                                 <li class="list-group-item"><b>Colonia: </b>'.$registro['colonia'].'</li>
-                                <li class="list-group-item"><b>Codigo Postal: </b>'.$registro['cp'].'</li>
-                                <li class="list-group-item"><b>Telefono: </b>'.$registro['telefono'].'</li>
+                                <li class="list-group-item"><b>Código Postal: </b>'.$registro['cp'].'</li>
+                                <li class="list-group-item"><b>Teléfono: </b>'.$registro['telefono'].'</li>
                                 <li class="list-group-item"><b>RFC: </b>'.$registro['rfc'].'</li>
                                 <li class="list-group-item"><b>Documentos: </b>';
                                 //Entra a la carpeta donde estan los archivos y la abre    

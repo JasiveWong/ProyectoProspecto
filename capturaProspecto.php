@@ -60,7 +60,7 @@
               </div>
               <div class="form-floating mb-3">
                 <input type="number" class="form-control" name="numero" required/>
-                <label>Numero</label>
+                <label>Número</label>
               </div>
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" name="colonia" required/>
@@ -68,11 +68,11 @@
               </div>
               <div class="form-floating mb-3">
                 <input type="number" class="form-control" name="codigoP" required/>
-                <label>Codigo Postal</label>
+                <label>Código Postal</label>
               </div>
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" name="telefono" required/>
-                <label>Telefono</label>
+                <label>Teléfono</label>
               </div>
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" name="rfc" required/>
