@@ -37,7 +37,7 @@
                             <li class="list-group-item"><b>RFC: </b>'.$registro['rfc'].'</li>
                             <li class="list-group-item"><b>Documentos: </b>';
                                 
-                            $ruta="archivos/".$registro['primerAp']."".$registro['segundoAp']."".$registro['nombre']."";
+                            $ruta="archivos/".$registro['id']."-".$registro['primerAp']."".$registro['nombre']."";
                             $gestor = opendir($ruta);
                             echo "<ol>";
                                 // Recorre todos los elementos del directorio
