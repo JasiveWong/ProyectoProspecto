@@ -25,8 +25,10 @@
             if($arr["success"]){
                 include("bd.php");
                 $conexionbd=conectarbd();
-                $usuarioRegistrado="SELECT usuario FROM usuarios WHERE usuario='".$usuario."'";
-                if(empty($usuarioRegistrado)){
+                $buscarUsuarioRegistrado="SELECT usuario FROM usuarios WHERE usuario='".$usuario."'";
+                $resultado=mysqli_query($conexionbd,$buscarUsuarioRegistrado);
+                $registro=mysqli_fetch_assoc($resultado);
+                if(empty($registro)){
                     $sql="insert into usuarios(id,usuario, tipo, contrasenia)";
                     $sql=$sql. " values(DEFAULT,'".$usuario."','".$trabajador."','".$contra."')";   
                     $result = mysqli_query($conexionbd,$sql);
