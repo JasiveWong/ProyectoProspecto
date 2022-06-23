@@ -37,15 +37,21 @@
             </thead>
             <tbody>
                 <?php
+                //Inicia sesión
                 SESSION_START();
+                //Si existen las variables de sesión
                 if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+                    //Si el usuario es promotor
                     if($_SESSION['trabajador']=='Promotor'){
+                        //Hace la conexion con la bd
                         include("bd.php");
                         $conexionbd = conectarbd();
+                        //Hace una consulta para mostrar la informacion
                         $consultaInformacion = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion";
                         $resultadoConsultaInformacion = mysqli_query($conexionbd,$consultaInformacion);
-
+                        //Recorre el arreglo de la información
                         while ($arregloInformacion = $resultadoConsultaInformacion->fetch_assoc()) {
+                            //Muestra la información
                             echo '<tr>
                             <td>'. $arregloInformacion["nombre"] .'</td>
                             <td>'. $arregloInformacion["primerAp"] .'</td>
@@ -54,10 +60,14 @@
                             <td> <a href="verinfo.php?id='.$arregloInformacion['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
                             </tr>';
                         }
+                    //si no
                     }else{
+                        //No entra a la pagina
                         ?><script>history.back()</script><?php
                     }
+                // si no
                 }else{
+                    //Nos lleva a iniciar sesión
                     header('location:iniciarsesion.html');
                 }
                ?>

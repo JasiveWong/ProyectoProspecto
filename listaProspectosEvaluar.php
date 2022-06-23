@@ -34,15 +34,21 @@
             </thead>
             <tbody>
                 <?php
+                //Inicia sesión
                 SESSION_START();
+                //Si existen las variables de sesión
                 if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+                    //Si el usuario es Evaluador
                     if($_SESSION['trabajador']=='Evaluador'){
+                        //Hace la conexión con la bd
                         include("bd.php");
                         $conexionbd = conectarbd();
+                        //Hace una consulta para mostrar informacion de prospectos con estatus enviado
                         $consultaDatosEnviados = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion WHERE estatus='Enviado'";
                         $resultadoConsultaEnviados = mysqli_query($conexionbd,$consultaDatosEnviados);
-
+                        //Recorre el arreglo de información
                         while ($arregloResultados = $resultadoConsultaEnviados->fetch_assoc()) {
+                            //Muestra la información
                             echo '<tr>
                             <td>'. $arregloResultados["nombre"] .'</td>
                             <td>'. $arregloResultados["primerAp"] .'</td>
@@ -50,10 +56,14 @@
                             <td> <a href="evaluar.php?id='.$arregloResultados['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
                             </tr>';
                         }
+                    //Si no
                     }else{
+                        //No entra a la pagina
                         ?><script>history.back()</script><?php
                     }
+                //si no
                 }else{
+                    //Nos lleva a iniciar sesión
                     header('location:iniciarsesion.html');
                 }   
                ?>

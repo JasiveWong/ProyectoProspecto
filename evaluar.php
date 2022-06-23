@@ -25,15 +25,22 @@
             </div>
         </header>
         <?php
+            //Inicia sesión
             SESSION_START();
+            //Si existen las variables de sesión
             if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+                //Si el usuario es Evaluador y si el id es numerico
                 if($_SESSION['trabajador']=='Evaluador' && is_numeric($_GET['id'])){
+                    //Hace la conexión
                     include("bd.php");
                     $conexionbd=conectarbd();
+                    //Hace una consulta para buscar la informacion correspondiente al id
                     $consultaBusquedaInformacion="SELECT * FROM informacion WHERE id=".$_GET['id'];
                     $EjecucionBusqueda=mysqli_query($conexionbd,$consultaBusquedaInformacion);
                     $registro=mysqli_fetch_assoc($EjecucionBusqueda);
+                    //Si se encontro informacion
                     if(!empty($registro)){
+                        //Muestra resultados
                         echo'<h1 class="display-5 fw-bold text-center">Información de: '.$registro['nombre']." ".$registro['primerAp'].'</h1>';
                         echo'
                             <ul class="list-group list-group-flush">
@@ -47,7 +54,7 @@
                                 <li class="list-group-item"><b>Telefono: </b>'.$registro['telefono'].'</li>
                                 <li class="list-group-item"><b>RFC: </b>'.$registro['rfc'].'</li>
                                 <li class="list-group-item"><b>Documentos: </b>';
-                                    
+                                //Entra a la carpeta donde estan los archivos y la abre    
                                 $ruta=$ruta="archivos/".$registro['id']."-".$registro['primerAp']."".$registro['nombre']."";
                                 if(is_dir($ruta)){
                                     $gestor = opendir($ruta);
@@ -96,13 +103,19 @@
                                     <input type="submit" class="btn btn-primary me-md-2" value="Enviar"></input>
                                 </div>
                             </form>';
+                    // si no
                     }else{
+                        //No entra a la pagina
                         ?><script>history.back()</script><?php
                     }
+                //si no
                 }else{
+                    //No entra a la pagina
                     ?><script>history.back()</script><?php
                 }
+            // si no
             }else{
+                //Nos manda a iniciar sesión
                 header('location:iniciarsesion.html');
             }
         ?>

@@ -14,24 +14,37 @@
 </head>
 <body>
     <?php
+        //inicia sesión
         SESSION_START();
+        // si las variables de sesion existen
         if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+            //Si el usuario es evaluador, el valor get id es numerico y fue enviado el estatus
             if($_SESSION['trabajador']=='Evaluador' && is_numeric($_GET['id']) && isset($_POST['estatus'])){
+                //Hace la conexión con la bd
                 include("bd.php");
                 $conexionbd=conectarbd();
+                //Hace una consulta para buscar la informacion con el id enviado
                 $consultaBusquedaId="SELECT * FROM informacion WHERE id=".$_GET['id'];
                 $ejecucionBusqueda=mysqli_query($conexionbd,$consultaBusquedaId);
                 $busquedaId=mysqli_fetch_assoc($ejecucionBusqueda);
+                //Si existe información
                 if(!empty($busquedaId)){
+                    //Si el estatus fue autorizar entra
                     if($_POST['estatus']=='Autorizar'){
+                        //Actualiza el estatus a Autorizado
                         $estatus='Autorizado';
                         $consultaEvaluado="UPDATE informacion SET estatus='".$estatus."', comentarios='' WHERE id=".$_GET['id'];
+                    // si fue rechazado entra
                     }else{
+                        //Actualiza el estatus a Rechazado
                         $estatus='Rechazado';
                         $consultaEvaluado="UPDATE informacion SET estatus='".$estatus."', comentarios='".$_POST['observaciones']."' WHERE id=".$_GET['id'];
                     }
+                    //Ejecuta la consulta
                     $evaluado=mysqli_query($conexionbd,$consultaEvaluado);
+                    //Si fue evaluado...
                     if($evaluado){
+                        //Muestra en pantalla que el prospecto fue evaluado
                         echo '
                         <div class="px-4 py-5 my-5 text-center">
                         <h1 class="display-5 fw-bold">Prospecto '.$estatus.'!</h1>
@@ -41,7 +54,9 @@
                         </div>
                         </div>
                         </div>';
+                    // si no...
                     }else{
+                        //Muestra en pantalla que hubo un error
                         echo '
                         <div class="px-4 py-5 my-5 text-center">
                         <h1 class="display-5 fw-bold">Ocurrio un error al evaluar prospecto</h1>
@@ -52,13 +67,19 @@
                         </div>
                         </div>';
                     }
+                // si no existe
                 }else{
+                    // no entra a esta pantalla
                     ?><script>history.back()</script><?php    
                 }
+            // si no
             }else{
+                //No entra a esta pantalla
                 ?><script>history.back()</script><?php
             }
+        // si no
         }else{
+            //nos regresa al inicio de sesión
             header('location:iniciarsesion.html');
         }
     ?>

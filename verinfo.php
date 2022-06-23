@@ -24,15 +24,22 @@
             </div>
         </header>
         <?php
+            //Inicia sesión
             SESSION_START();
+            //Si las variables de sesión existen
             if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+                //si el usuario es promotor y el id es numerico
                 if($_SESSION['trabajador']=='Promotor' && is_numeric($_GET['id'])){
+                    //Hace la conexion con la bd
                     include("bd.php");
                     $conexionbd=conectarbd();
+                    //Hace una consulta para buscar la informacion
                     $consultaInfoId="SELECT * FROM informacion WHERE id=".$_GET['id'];
                     $ejecucionConsultaInfoId=mysqli_query($conexionbd,$consultaInfoId);
                     $registro=mysqli_fetch_assoc($ejecucionConsultaInfoId);
+                    //Si encontro información
                     if(!empty($registro)){
+                        //Muestra información
                         echo'<h1 class="display-5 fw-bold text-center">Información de: '.$registro['nombre']." ".$registro['primerAp'].'</h1>';
                         echo'
                             <ul class="list-group list-group-flush">
@@ -46,7 +53,7 @@
                                 <li class="list-group-item"><b>Telefono: </b>'.$registro['telefono'].'</li>
                                 <li class="list-group-item"><b>RFC: </b>'.$registro['rfc'].'</li>
                                 <li class="list-group-item"><b>Documentos: </b>';
-                                    
+                                //Entra a la carpeta donde estan los archivos y la abre   
                                 $ruta="archivos/".$registro['id']."-".$registro['primerAp']."".$registro['nombre']."";
 
                                 if(is_dir($ruta)){
@@ -70,22 +77,32 @@
                                     // Cierra el gestor de directorios
                                     closedir($gestor);
                                     echo '</ol>';   
+                                //si no
                                 }else{
+                                    //Nos dice que hubo un error al cargar los archivos
                                     echo '<p>Error al cargar los archivos</p>';
                                 }
                                 echo '</li>
                                     <li class="list-group-item"><b>Estatus: </b>'.$registro['estatus'].'</li>';
-                                if ($registro['estatus']=='Rechazado') {
+                                    //Si es estatus es rechazado
+                                    if ($registro['estatus']=='Rechazado') {
+                                    //Muestra comentarios    
                                     echo '<li class="list-group-item"><b>Comentarios: </b> '.$registro['comentarios'].'</li>';
                                 }
                             '</ul>';
+                    //si no
                     }else{
+                        //No entra a la pagina
                         ?><script>history.back()</script><?php
                     }
+                // si no
                 }else{
+                    //No entra a la pagina
                     ?><script>history.back()</script><?php
                 }
+            //si no
             }else{
+                //Nos lleva a iniciar sesión
                 header('location:iniciarsesion.html');
             }
         ?>
