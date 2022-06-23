@@ -24,11 +24,16 @@
             $arr=json_decode($response,TRUE);
             if($arr["success"]){
                 include("bd.php");
-                $conexionbd=conectarbd();                
-                $sql="insert into usuarios(id,usuario, tipo, contrasenia)";
-                $sql=$sql. " values(DEFAULT,'".$usuario."','".$trabajador."','".$contra."')";   
-                $result = mysqli_query($conexionbd,$sql);
-                mysqli_close($conexionbd);
+                $conexionbd=conectarbd();
+                $usuarioRegistrado="SELECT usuario FROM usuarios WHERE usuario='".$usuario."'";
+                if(empty($usuarioRegistrado)){
+                    $sql="insert into usuarios(id,usuario, tipo, contrasenia)";
+                    $sql=$sql. " values(DEFAULT,'".$usuario."','".$trabajador."','".$contra."')";   
+                    $result = mysqli_query($conexionbd,$sql);
+                    mysqli_close($conexionbd);
+                }else{
+                    header('location:registro.html');
+                }                
             }
         }else{
             header('location:registro.html');
