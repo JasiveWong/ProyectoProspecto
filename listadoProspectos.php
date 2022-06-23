@@ -40,7 +40,7 @@
                 //Inicia sesión
                 SESSION_START();
                 //Si existe la variable de sesión
-                if(isset($_SESSION['trabajador'])){
+                if(isset($_SESSION['promotor']) && isset($_SESSION['trabajador'])){
                     //Si el usuario es promotor
                     if($_SESSION['trabajador']=='Promotor'){
                         //Hace la conexion con la bd

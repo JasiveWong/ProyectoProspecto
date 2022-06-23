@@ -27,7 +27,7 @@
             //Inicia sesión
             SESSION_START();
             //Si la variable de sesión existe
-            if(isset($_SESSION['trabajador'])){
+            if(isset($_SESSION['promotor']) && isset($_SESSION['trabajador'])){
                 //si el usuario es promotor y el id es numerico
                 if($_SESSION['trabajador']=='Promotor' && is_numeric($_GET['id'])){
                     //Hace la conexion con la bd

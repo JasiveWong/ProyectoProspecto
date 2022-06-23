@@ -28,6 +28,7 @@
                         SESSION_START();
                         //Crea variable de sesión
                         $_SESSION['trabajador']=$resultadoBusquedaUsuario['tipo'];
+                        $_SESSION['promotor'] = $usuario;
                         //Si el usuario es promotor
                         if($resultadoBusquedaUsuario['tipo'] == "Promotor"){
                             //Lo lleva al listado de prospectos

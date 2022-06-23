@@ -19,7 +19,7 @@
     //Inicio de sesión
     SESSION_START();
     //Si existen la variable de sesion
-    if(isset($_SESSION['trabajador'])){
+    if(isset($_SESSION['promotor']) && isset($_SESSION['trabajador'])){
         //Si el trabajador es promotor
         if($_SESSION['trabajador']=='Promotor'){
             //Hace la conexión con la base de datos
