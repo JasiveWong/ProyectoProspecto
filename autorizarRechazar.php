@@ -67,6 +67,8 @@
                         </div>
                         </div>';
                     }
+                    //Cierra conexión
+                    mysqli_close($conexionbd);
                 // si no existe
                 }else{
                     // no entra a esta pantalla

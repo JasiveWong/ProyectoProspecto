@@ -65,6 +65,8 @@
                     </script>
                     <?php
                 }
+                //Cierra conexión
+                mysqli_close($conexionbd);
             }
         //si no
         }else{

@@ -56,6 +56,8 @@
                             <td> <a href="evaluar.php?id='.$arregloResultados['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
                             </tr>';
                         }
+                        //Cierra conexion
+                        mysqli_close($conexionbd);
                     //Si no
                     }else{
                         //No entra a la pagina

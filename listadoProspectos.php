@@ -60,6 +60,8 @@
                             <td> <a href="verinfo.php?id='.$arregloInformacion['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
                             </tr>';
                         }
+                        //Cierra conexión
+                        mysqli_close($conexionbd);
                     //si no
                     }else{
                         //No entra a la pagina

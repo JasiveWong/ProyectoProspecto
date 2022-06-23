@@ -108,6 +108,8 @@
                         //No entra a la pagina
                         ?><script>history.back()</script><?php
                     }
+                    //Cierra conexión
+                    mysqli_close($conexionbd);
                 //si no
                 }else{
                     //No entra a la pagina
