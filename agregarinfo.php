@@ -41,12 +41,12 @@
                             // Nombres de archivos de temporales
                             $archivonombre = $_FILES["archivo"]["name"][$key]; 
                             $fuente = $_FILES["archivo"]["tmp_name"][$key];
-                            $consultaDatos="SELECT id FROM informacion WHERE nombre='".$_POST['nombre']."'";
+                            $consultaDatos="SELECT MAX(id) FROM informacion";
                             $busquedaId=mysqli_query($conexionbd,$consultaDatos);
                             $id=mysqli_fetch_assoc($busquedaId);
                             
                             
-                            $carpeta = "archivos/".$id['id']."-".$_POST['primerAp']."".$_POST['nombre'].""; //Carpeta donde guardamos los archivos
+                            $carpeta = "archivos/".$id['MAX(id)']."-".$_POST['primerAp']."".$_POST['nombre'].""; //Carpeta donde guardamos los archivos
                             
                             //Si no existe la carpeta
                             if(!file_exists($carpeta)){
