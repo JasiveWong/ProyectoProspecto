@@ -4,22 +4,22 @@
         $contra = $_POST['contra'];
 
         if(!empty($captcha)){
-            $secret = "6LdOVQMgAAAAAE1DUZi6vOAeA7YFMzfQw5Y7gIam";
-            $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$captcha");
-            $arr=json_decode($response,TRUE);
-            if($arr["success"]){
+            $clave = "6LdOVQMgAAAAAE1DUZi6vOAeA7YFMzfQw5Y7gIam";
+            $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$clave&response=$captcha");
+            $aceptado=json_decode($response,TRUE);
+            if($aceptado["success"]){
                 session_start();
                 include("bd.php");
                 $conexionbd=conectarbd();
-                $consulta = "SELECT*FROM usuarios WHERE usuario= '$usuario'";
-                $resultado = mysqli_query($conexionbd,$consulta);
-                $fila = mysqli_fetch_assoc($resultado);
-                if(!empty($fila)){
-                    if(password_verify($contra, $fila['contrasenia'])){
+                $consultaBusquedaUsuario = "SELECT*FROM usuarios WHERE usuario= '$usuario'";
+                $ejecucionBusquedaUsuario = mysqli_query($conexionbd,$consultaBusquedaUsuario);
+                $resultadoBusquedaUsuario = mysqli_fetch_assoc($ejecucionBusquedaUsuario);
+                if(!empty($resultadoBusquedaUsuario)){
+                    if(password_verify($contra, $resultadoBusquedaUsuario['contrasenia'])){
                         SESSION_START();
                         $_SESSION['usuario']=$usuario;
-                        $_SESSION['trabajador']=$fila['tipo'];
-                        if($fila['tipo'] == "Promotor"){
+                        $_SESSION['trabajador']=$resultadoBusquedaUsuario['tipo'];
+                        if($resultadoBusquedaUsuario['tipo'] == "Promotor"){
                             header("location:listadoProspectos.php");
                         }else{
                             header("location:listaProspectosEvaluar.php");
@@ -34,7 +34,7 @@
                         </script>
                         <?php
                     }
-                    mysqli_free_result($resultado);
+                    mysqli_free_result($ejecucionBusquedaUsuario);
                     mysqli_close($con);
                 }else{
                     ?>

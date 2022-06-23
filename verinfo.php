@@ -14,25 +14,24 @@
 </head>
 <body>
     <div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="capturaProspecto.php" class="nav-link px-2">Capturar Prospecto</a></li>
-        </ul>
-
-        <div class="col-md-3 text-end">
-        <a href="cerrarsesion.php" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
-        </div>
-    </header>
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="listadoProspectos.php" class="nav-link px-2">Ver lista</a></li>
+                <li><a href="capturaProspecto.php" class="nav-link px-2">Capturar Prospecto</a></li>
+            </ul>
+            <div class="col-md-3 text-end">
+                <a href="cerrarsesion.php" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
+            </div>
+        </header>
         <?php
             SESSION_START();
             if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
                 if($_SESSION['trabajador']=='Promotor' && is_numeric($_GET['id'])){
                     include("bd.php");
                     $conexionbd=conectarbd();
-                    $query="SELECT * FROM informacion WHERE id=".$_GET['id'];
-                    $resultado=mysqli_query($conexionbd,$query);
-                    $registro=mysqli_fetch_assoc($resultado);
+                    $consultaInfoId="SELECT * FROM informacion WHERE id=".$_GET['id'];
+                    $ejecucionConsultaInfoId=mysqli_query($conexionbd,$consultaInfoId);
+                    $registro=mysqli_fetch_assoc($ejecucionConsultaInfoId);
                     if(!empty($registro)){
                         echo'<h1 class="display-5 fw-bold text-center">Información de: '.$registro['nombre']." ".$registro['primerAp'].'</h1>';
                         echo'
@@ -63,7 +62,6 @@
                                             // Si es un directorio se recorre recursivamente
                                             if (is_dir($ruta_completa)) {
                                                 echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
-                                                obtener_estructura_directorios($ruta_completa);
                                             } else {
                                                 echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
                                             }
@@ -76,7 +74,7 @@
                                     echo '<p>Error al cargar los archivos</p>';
                                 }
                                 echo '</li>
-                                <li class="list-group-item"><b>Estatus: </b>'.$registro['estatus'].'</li>';
+                                    <li class="list-group-item"><b>Estatus: </b>'.$registro['estatus'].'</li>';
                                 if ($registro['estatus']=='Rechazado') {
                                     echo '<li class="list-group-item"><b>Comentarios: </b> '.$registro['comentarios'].'</li>';
                                 }

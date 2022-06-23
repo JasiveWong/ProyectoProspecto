@@ -4,6 +4,7 @@ function mostrarTextArea(){
         resultado.classList.add("mostrar");
     }else{
         resultado.classList.remove("mostrar");
+        resultado.removeAttribute('required');
     }
 }
 function Salir(){

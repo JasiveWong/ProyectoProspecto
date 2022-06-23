@@ -21,7 +21,7 @@
         if($_SESSION['trabajador']=='Promotor'){
             include("bd.php");
             $conexionbd=conectarbd();
-            $query= "INSERT INTO informacion (nombre,primerAp,segundoAp,calle,numero,colonia,cp,telefono,rfc) VALUES ('".$_POST['nombre']."',
+            $consultaGuardarInfo= "INSERT INTO informacion (nombre,primerAp,segundoAp,calle,numero,colonia,cp,telefono,rfc) VALUES ('".$_POST['nombre']."',
                                 '".$_POST['primerAp']."',
                                 '".$_POST['segundoAp']."',
                                 '".$_POST['calle']."',
@@ -31,39 +31,38 @@
                                 '".$_POST['telefono']."',
                                 '".$_POST['rfc']."'
                                 )";
-            $guardadoDatos=mysqli_query($conexionbd,$query);
-                //Si hay archivos a subir
-                if($_FILES["archivo"]){
-                    //Recorre el array de los archivos a subir
-                    foreach($_FILES["archivo"]['tmp_name'] as $key => $tmp_name){
-                        //Si el archivo existe
-                        if($_FILES["archivo"]["name"][$key]){
-                            // Nombres de archivos de temporales
-                            $archivonombre = $_FILES["archivo"]["name"][$key]; 
-                            $fuente = $_FILES["archivo"]["tmp_name"][$key];
-                            $consultaDatos="SELECT MAX(id) FROM informacion";
-                            $busquedaId=mysqli_query($conexionbd,$consultaDatos);
-                            $id=mysqli_fetch_assoc($busquedaId);
-                            
-                            
-                            $carpeta = "archivos/".$id['MAX(id)']."-".$_POST['primerAp']."".$_POST['nombre'].""; //Carpeta donde guardamos los archivos
-                            
-                            //Si no existe la carpeta
-                            if(!file_exists($carpeta)){
-                                //Se crea o se genera un error.
-                                mkdir($carpeta, 0777) or die("Hubo un error al crear la carpeta");	
-                            }
-                            
-                            //Abrimos la conexion con la carpeta destino
-                            $dir=opendir($carpeta);
-                            
-                            //Verificamos si el archivo se ha subido
-                            $guardadoArchivos=move_uploaded_file($fuente, $carpeta.'/'.$archivonombre);
-                            //Cerramos la conexion con la carpeta destino
-                            closedir($dir); 
+            $guardadoDatos=mysqli_query($conexionbd,$consultaGuardarInfo);
+            if($_FILES["archivo"]){
+                //Recorre el array de los archivos a subir
+                foreach($_FILES["archivo"]['tmp_name'] as $key => $tmp_name){
+                    //Si el archivo existe
+                    if($_FILES["archivo"]["name"][$key]){
+                        // Nombres de archivos de temporales
+                        $archivonombre = $_FILES["archivo"]["name"][$key]; 
+                        $fuente = $_FILES["archivo"]["tmp_name"][$key];
+                        $consultaIdMayor="SELECT MAX(id) FROM informacion";
+                        $busquedaId=mysqli_query($conexionbd,$consultaIdMayor);
+                        $id=mysqli_fetch_assoc($busquedaId);
+                        
+                        
+                        $carpeta = "archivos/".$id['MAX(id)']."-".$_POST['primerAp']."".$_POST['nombre'].""; //Carpeta donde guardamos los archivos
+                        
+                        //Si no existe la carpeta
+                        if(!file_exists($carpeta)){
+                            //Se crea o se genera un error.
+                            mkdir($carpeta, 0777) or die("Hubo un error al crear la carpeta");	
                         }
+                        
+                        //Abrimos la conexion con la carpeta destino
+                        $directorio=opendir($carpeta);
+                        
+                        //Verificamos si el archivo se ha subido
+                        $guardadoArchivos=move_uploaded_file($fuente, $carpeta.'/'.$archivonombre);
+                        //Cerramos la conexion con la carpeta destino
+                        closedir($directorio); 
                     }
                 }
+            }
             if($guardadoArchivos && $guardadoDatos){
                 echo '
                 <div class="px-4 py-5 my-5 text-center">

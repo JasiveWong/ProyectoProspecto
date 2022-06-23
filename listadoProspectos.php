@@ -41,17 +41,17 @@
                 if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
                     if($_SESSION['trabajador']=='Promotor'){
                         include("bd.php");
-                        $con = conectarbd();
-                        $sql = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion";
-                        $result = mysqli_query($con,$sql);
+                        $conexionbd = conectarbd();
+                        $consultaInformacion = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion";
+                        $resultadoConsultaInformacion = mysqli_query($conexionbd,$consultaInformacion);
 
-                        while ($row = $result->fetch_assoc()) {
+                        while ($arregloInformacion = $resultadoConsultaInformacion->fetch_assoc()) {
                             echo '<tr>
-                            <td>'. $row["nombre"] .'</td>
-                            <td>'. $row["primerAp"] .'</td>
-                            <td>'. $row["segundoAp"] .'</td>
-                            <td>'. $row["estatus"] .'</td>
-                            <td> <a href="verinfo.php?id='.$row['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
+                            <td>'. $arregloInformacion["nombre"] .'</td>
+                            <td>'. $arregloInformacion["primerAp"] .'</td>
+                            <td>'. $arregloInformacion["segundoAp"] .'</td>
+                            <td>'. $arregloInformacion["estatus"] .'</td>
+                            <td> <a href="verinfo.php?id='.$arregloInformacion['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
                             </tr>';
                         }
                     }else{

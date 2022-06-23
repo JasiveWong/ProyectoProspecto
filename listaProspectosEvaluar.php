@@ -15,12 +15,12 @@
 <body>
     <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="listaProspectosEvaluar.php" class="nav-link px-2 link-secondary">Ver lista</a></li>
-    </ul>
-    <div class="col-md-3 text-end">
-    <a href="cerrarsesion.php" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
-    </div>
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="listaProspectosEvaluar.php" class="nav-link px-2 link-secondary">Ver lista</a></li>
+        </ul>
+        <div class="col-md-3 text-end">
+            <a href="cerrarsesion.php" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
+        </div>
     </header>
         <h1 class="display-5 fw-bold text-center">Listado de Prospectos a Evaluar</h1>
         <table class="table">
@@ -38,16 +38,16 @@
                 if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
                     if($_SESSION['trabajador']=='Evaluador'){
                         include("bd.php");
-                        $con = conectarbd();
-                        $sql = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion WHERE estatus='Enviado'";
-                        $result = mysqli_query($con,$sql);
+                        $conexionbd = conectarbd();
+                        $consultaDatosEnviados = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion WHERE estatus='Enviado'";
+                        $resultadoConsultaEnviados = mysqli_query($conexionbd,$consultaDatosEnviados);
 
-                        while ($row = $result->fetch_assoc()) {
+                        while ($arregloResultados = $resultadoConsultaEnviados->fetch_assoc()) {
                             echo '<tr>
-                            <td>'. $row["nombre"] .'</td>
-                            <td>'. $row["primerAp"] .'</td>
-                            <td>'. $row["segundoAp"] .'</td>
-                            <td> <a href="evaluar.php?id='.$row['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
+                            <td>'. $arregloResultados["nombre"] .'</td>
+                            <td>'. $arregloResultados["primerAp"] .'</td>
+                            <td>'. $arregloResultados["segundoAp"] .'</td>
+                            <td> <a href="evaluar.php?id='.$arregloResultados['id'].'" class="btn btn-primary" type="button">Ver más</button> </td>
                             </tr>';
                         }
                     }else{

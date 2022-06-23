@@ -30,9 +30,9 @@
                 if($_SESSION['trabajador']=='Evaluador' && is_numeric($_GET['id'])){
                     include("bd.php");
                     $conexionbd=conectarbd();
-                    $query="SELECT * FROM informacion WHERE id=".$_GET['id'];
-                    $resultado=mysqli_query($conexionbd,$query);
-                    $registro=mysqli_fetch_assoc($resultado);
+                    $consultaBusquedaInformacion="SELECT * FROM informacion WHERE id=".$_GET['id'];
+                    $EjecucionBusqueda=mysqli_query($conexionbd,$consultaBusquedaInformacion);
+                    $registro=mysqli_fetch_assoc($EjecucionBusqueda);
                     if(!empty($registro)){
                         echo'<h1 class="display-5 fw-bold text-center">Información de: '.$registro['nombre']." ".$registro['primerAp'].'</h1>';
                         echo'
@@ -62,7 +62,7 @@
                                                 // Si es un directorio se recorre recursivamente
                                                 if (is_dir($ruta_completa)) {
                                                     echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
-                                                    obtener_estructura_directorios($ruta_completa);
+
                                                 } else {
                                                     echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
                                                 }

@@ -19,18 +19,18 @@
             if($_SESSION['trabajador']=='Evaluador' && is_numeric($_GET['id']) && isset($_POST['estatus'])){
                 include("bd.php");
                 $conexionbd=conectarbd();
-                $queryBusqueda="SELECT * FROM informacion WHERE id=".$_GET['id'];
-                $resultadoBusqueda=mysqli_query($conexionbd,$queryBusqueda);
-                $busquedaId=mysqli_fetch_assoc($resultadoBusqueda);
+                $consultaBusquedaId="SELECT * FROM informacion WHERE id=".$_GET['id'];
+                $ejecucionBusqueda=mysqli_query($conexionbd,$consultaBusquedaId);
+                $busquedaId=mysqli_fetch_assoc($ejecucionBusqueda);
                 if(!empty($busquedaId)){
                     if($_POST['estatus']=='Autorizar'){
                         $estatus='Autorizado';
-                        $query="UPDATE informacion SET estatus='".$estatus."' WHERE id=".$_GET['id'];
+                        $consultaEvaluado="UPDATE informacion SET estatus='".$estatus."', comentarios='' WHERE id=".$_GET['id'];
                     }else{
                         $estatus='Rechazado';
-                        $query="UPDATE informacion SET estatus='".$estatus."', comentarios='".$_POST['observaciones']."' WHERE id=".$_GET['id'];
+                        $consultaEvaluado="UPDATE informacion SET estatus='".$estatus."', comentarios='".$_POST['observaciones']."' WHERE id=".$_GET['id'];
                     }
-                    $evaluado=mysqli_query($conexionbd,$query);
+                    $evaluado=mysqli_query($conexionbd,$consultaEvaluado);
                     if($evaluado){
                         echo '
                         <div class="px-4 py-5 my-5 text-center">

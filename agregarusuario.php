@@ -12,26 +12,25 @@
     <title>Document</title>
 </head>
 <body>
-<?php                       
+    <?php                       
         $usuario = $_POST['usuario'];
         $trabajador = $_POST['trabajador'];
         $contra = password_hash($_POST['contra'], PASSWORD_DEFAULT);
         $captcha = $_POST['g-recaptcha-response'];
-
         if(!empty($captcha)){
-            $secret = "6LdOVQMgAAAAAE1DUZi6vOAeA7YFMzfQw5Y7gIam";
-            $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$captcha");
-            $arr=json_decode($response,TRUE);
-            if($arr["success"]){
+            $clave = "6LdOVQMgAAAAAE1DUZi6vOAeA7YFMzfQw5Y7gIam";
+            $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$clave&response=$captcha");
+            $aceptado=json_decode($response,TRUE);
+            if($aceptado["success"]){
                 include("bd.php");
                 $conexionbd=conectarbd();
-                $buscarUsuarioRegistrado="SELECT usuario FROM usuarios WHERE usuario='".$usuario."'";
-                $resultado=mysqli_query($conexionbd,$buscarUsuarioRegistrado);
-                $registro=mysqli_fetch_assoc($resultado);
-                if(empty($registro)){
-                    $sql="insert into usuarios(id,usuario, tipo, contrasenia)";
-                    $sql=$sql. " values(DEFAULT,'".$usuario."','".$trabajador."','".$contra."')";   
-                    $result = mysqli_query($conexionbd,$sql);
+                $consultasBusquedaUsuario="SELECT usuario FROM usuarios WHERE usuario='".$usuario."'";
+                $consultaEjecutadaBusquedaUsuario=mysqli_query($conexionbd,$consultasBusquedaUsuario);
+                $resultadoBusqueda=mysqli_fetch_assoc($consultaEjecutadaBusquedaUsuario);
+                if(empty($resultadoBusqueda)){
+                    $consultaGuardarValores="insert into usuarios(id,usuario, tipo, contrasenia)";
+                    $consultaGuardarValores=$consultaGuardarValores. " values(DEFAULT,'".$usuario."','".$trabajador."','".$contra."')";   
+                    $ConsultaEjecutadaGuardarValores = mysqli_query($conexionbd,$consultaGuardarValores);
                     mysqli_close($conexionbd);
                 }else{
                     header('location:registro.html');
