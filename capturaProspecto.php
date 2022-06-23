@@ -18,8 +18,8 @@
     <?php
       //Inicia sesión
       SESSION_START();
-      // Si las variables de sesión existen
-      if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+      // Si la variable de sesión existe
+      if(isset($_SESSION['trabajador'])){
         //Si el trabajador es promotor
         if($_SESSION['trabajador']=='Promotor'){
           //Muestra pantalla

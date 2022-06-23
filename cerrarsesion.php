@@ -1,8 +1,8 @@
 <?php
     //Inicia sesión
     SESSION_START();
-    //Si existen las variables de sesión
-    if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+    //Si existe la variable de sesión
+    if(isset($_SESSION['trabajador'])){
         //Destruye la sesión 
         SESSION_UNSET();
         SESSION_DESTROY();

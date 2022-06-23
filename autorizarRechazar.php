@@ -16,8 +16,8 @@
     <?php
         //inicia sesión
         SESSION_START();
-        // si las variables de sesion existen
-        if(isset($_SESSION['usuario'])&& isset($_SESSION['trabajador'])){
+        // si la variable de sesion existe
+        if(isset($_SESSION['trabajador'])){
             //Si el usuario es evaluador, el valor get id es numerico y fue enviado el estatus
             if($_SESSION['trabajador']=='Evaluador' && is_numeric($_GET['id']) && isset($_POST['estatus'])){
                 //Hace la conexión con la bd

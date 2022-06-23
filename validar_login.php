@@ -26,8 +26,7 @@
                     if(password_verify($contra, $resultadoBusquedaUsuario['contrasenia'])){
                         //Inicia sesión
                         SESSION_START();
-                        //Crea veriables de sesión
-                        $_SESSION['usuario']=$usuario;
+                        //Crea variable de sesión
                         $_SESSION['trabajador']=$resultadoBusquedaUsuario['tipo'];
                         //Si el usuario es promotor
                         if($resultadoBusquedaUsuario['tipo'] == "Promotor"){
