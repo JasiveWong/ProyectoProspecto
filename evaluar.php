@@ -47,28 +47,32 @@
                                 <li class="list-group-item"><b>Documentos: </b>';
                                     
                                 $ruta=$ruta="archivos/".$registro['id']."-".$registro['primerAp']."".$registro['nombre']."";
-                                $gestor = opendir($ruta);
-                                echo "<ol>";
-                                    // Recorre todos los elementos del directorio
-                                    while (($archivo = readdir($gestor)) !== false)  {
-                                            
-                                        $ruta_completa = $ruta . "/" . $archivo;
-                            
-                                        // Se muestran todos los archivos y carpetas excepto "." y ".."
-                                        if ($archivo != "." && $archivo != "..") {
-                                            // Si es un directorio se recorre recursivamente
-                                            if (is_dir($ruta_completa)) {
-                                                echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
-                                                obtener_estructura_directorios($ruta_completa);
-                                            } else {
-                                                echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
+                                if(is_dir($ruta)){
+                                    $gestor = opendir($ruta);
+                                    echo "<ol>";
+                                        // Recorre todos los elementos del directorio
+                                        while (($archivo = readdir($gestor)) !== false)  {
+                                                
+                                            $ruta_completa = $ruta . "/" . $archivo;
+                                
+                                            // Se muestran todos los archivos y carpetas excepto "." y ".."
+                                            if ($archivo != "." && $archivo != "..") {
+                                                // Si es un directorio se recorre recursivamente
+                                                if (is_dir($ruta_completa)) {
+                                                    echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
+                                                    obtener_estructura_directorios($ruta_completa);
+                                                } else {
+                                                    echo "<li><a href='$ruta_completa' download='$archivo'>$archivo</a></li>";
+                                                }
                                             }
                                         }
-                                    }
-                                    // Cierra el gestor de directorios
-                                    closedir($gestor);
-                                echo '</ol>
-                                </li>
+                                        // Cierra el gestor de directorios
+                                        closedir($gestor);
+                                    echo '</ol>';
+                                }else{
+                                    echo '<p>Error al cargar los archivos</p>';
+                                }
+                            echo '</li>
                             </ul>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end" onchange="mostrarTextArea()" id="estatus2">
                             <form method="post" action="autorizarRechazar.php?id='.$registro['id'].'">

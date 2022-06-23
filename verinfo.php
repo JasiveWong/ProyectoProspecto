@@ -49,8 +49,10 @@
                                 <li class="list-group-item"><b>Documentos: </b>';
                                     
                                 $ruta="archivos/".$registro['id']."-".$registro['primerAp']."".$registro['nombre']."";
-                                $gestor = opendir($ruta);
-                                echo "<ol>";
+
+                                if(is_dir($ruta)){
+                                    $gestor = opendir($ruta);
+                                    echo "<ol>";
                                     // Recorre todos los elementos del directorio
                                     while (($archivo = readdir($gestor)) !== false)  {
                                             
@@ -69,8 +71,11 @@
                                     }
                                     // Cierra el gestor de directorios
                                     closedir($gestor);
-                                echo '</ol>
-                                </li>
+                                    echo '</ol>';   
+                                }else{
+                                    echo '<p>Error al cargar los archivos</p>';
+                                }
+                                echo '</li>
                                 <li class="list-group-item"><b>Estatus: </b>'.$registro['estatus'].'</li>';
                                 if ($registro['estatus']=='Rechazado') {
                                     echo '<li class="list-group-item"><b>Comentarios: </b> '.$registro['comentarios'].'</li>';
