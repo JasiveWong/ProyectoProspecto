@@ -89,7 +89,7 @@
                                 </div>
                                 <br>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <textarea cols="50" rows="5" name="observaciones" class="observaciones ocultar" placeholder="Observaciones de rechazo"></textarea>
+                                    <textarea cols="50" rows="5" name="observaciones" class="observaciones ocultar" placeholder="Observaciones de rechazo" required></textarea>
                                 </div>
                                 <br>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
