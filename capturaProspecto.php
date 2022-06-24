@@ -43,39 +43,39 @@
             </div>
             <form action="agregarinfo.php" method="post" enctype="multipart/form-data">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="nombre" required/>
+                <input type="text" class="form-control" name="nombre" onkeypress="return checkLetras(event)" maxlength="50" required/>
                 <label>Nombre del prospecto</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="primerAp" required/>
+                <input type="text" class="form-control" onkeypress="return checkLetras(event)" name="primerAp" maxlength="20" required/>
                 <label>Primer apellido</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="segundoAp" />
+                <input type="text" class="form-control" onkeypress="return checkLetras(event)" maxlength="20" name="segundoAp" />
                 <label>Segundo apellido</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="calle" required/>
+                <input type="text" class="form-control" onkeypress="return check(event)" name="calle" maxlength="40" required/>
                 <label>Calle</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="number" class="form-control" name="numero" required/>
+                <input type="number" class="form-control" name="numero" maxlength="11" required/>
                 <label>Número</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="colonia" required/>
+                <input type="text" class="form-control" onkeypress="return check(event)" name="colonia" maxlength="40" required/>
                 <label>Colonia</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="number" class="form-control" name="codigoP" required/>
+                <input type="number" class="form-control" name="codigoP" maxlength="6" required/>
                 <label>Código Postal</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="telefono" required/>
+                <input type="number" class="form-control" name="telefono" maxlength="10" required/>
                 <label>Teléfono</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="rfc" required/>
+                <input type="text" class="form-control" onkeypress="return check(event)" name="rfc" maxlength="13" required/>
                 <label>RFC</label>
               </div>
               <label class="col-sm-2 control-label">Documentos</label>
