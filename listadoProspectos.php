@@ -47,7 +47,7 @@
                         include("bd.php");
                         $conexionbd = conectarbd();
                         //Hace una consulta para mostrar la informacion
-                        $consultaInformacion = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion";
+                        $consultaInformacion = "SELECT id,nombre,primerAp,segundoAp,estatus FROM informacion WHERE promotor='".$_SESSION['promotor']."'";
                         $resultadoConsultaInformacion = mysqli_query($conexionbd,$consultaInformacion);
                         //Recorre el arreglo de la información
                         while ($arregloInformacion = $resultadoConsultaInformacion->fetch_assoc()) {

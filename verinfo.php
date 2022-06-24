@@ -34,7 +34,7 @@
                     include("bd.php");
                     $conexionbd=conectarbd();
                     //Hace una consulta para buscar la informacion
-                    $consultaInfoId="SELECT * FROM informacion WHERE id=".$_GET['id'];
+                    $consultaInfoId="SELECT * FROM informacion WHERE id=".$_GET['id']." AND promotor='".$_SESSION['promotor']."'";
                     $ejecucionConsultaInfoId=mysqli_query($conexionbd,$consultaInfoId);
                     $registro=mysqli_fetch_assoc($ejecucionConsultaInfoId);
                     //Si encontro información

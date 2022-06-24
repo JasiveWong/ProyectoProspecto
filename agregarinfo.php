@@ -26,7 +26,7 @@
             include("bd.php");
             $conexionbd=conectarbd();
             //Hace una consulta para guardar la informaición en la tabla
-            $consultaGuardarInfo= "INSERT INTO informacion (nombre,primerAp,segundoAp,calle,numero,colonia,cp,telefono,rfc) VALUES ('".$_POST['nombre']."',
+            $consultaGuardarInfo= "INSERT INTO informacion (nombre,primerAp,segundoAp,calle,numero,colonia,cp,telefono,rfc,promotor) VALUES ('".$_POST['nombre']."',
                                 '".$_POST['primerAp']."',
                                 '".$_POST['segundoAp']."',
                                 '".$_POST['calle']."',
@@ -34,7 +34,8 @@
                                 '".$_POST['colonia']."',
                                 '".$_POST['codigoP']."',
                                 '".$_POST['telefono']."',
-                                '".$_POST['rfc']."'
+                                '".$_POST['rfc']."',
+                                '".$_SESSION['promotor']."'
                                 )";
             $guardadoDatos=mysqli_query($conexionbd,$consultaGuardarInfo);
             //Si existe archivo
@@ -62,8 +63,7 @@
                         //Verificamos si el archivo se ha subido
                         $guardadoArchivos=move_uploaded_file($fuente, $carpeta.'/'.$archivonombre);
                         //Cerramos la conexion con la carpeta destino
-                        closedir($directorio); 
-                        mysqli_close($conexionbd);
+                        closedir($directorio);
                     }
                 }
             }

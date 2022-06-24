@@ -1,10 +1,12 @@
 function mostrarTextArea(){
     const resultado = document.querySelector('.observaciones');
+    const textarea= document.querySelector('textarea');
     if(document.getElementById("Rechazar").checked){
         resultado.classList.add("mostrar");
+        textarea.required = true;
     }else{
         resultado.classList.remove("mostrar");
-        resultado.removeAttribute('required');
+        textarea.removeAttribute('required');
     }
 }
 function Salir(){

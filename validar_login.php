@@ -11,8 +11,6 @@
             $aceptado=json_decode($response,TRUE);
             //Si fue aceptado
             if($aceptado["success"]){
-                //Inicia sesión
-                session_start();
                 //Hace la conexion con la bd
                 include("bd.php");
                 $conexionbd=conectarbd();
