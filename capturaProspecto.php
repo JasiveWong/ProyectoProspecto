@@ -78,7 +78,7 @@
                 <input type="text" class="form-control" name="rfc" required/>
                 <label>RFC</label>
               </div>
-              <label class="col-sm-2 control-label">Archivos</label>
+              <label class="col-sm-2 control-label">Documentos</label>
                 <div class="col-sm-8">
                   <input type="file" class="form-control" id="archivo[]" name="archivo[]" multiple="" required>
                 </div>
